@@ -1,0 +1,328 @@
+/* ===== ערכת נושא: בהיר / כהה ===== */
+button {
+  align-self: center !important;
+  align-items: center!important;
+}
+.lightMode,
+.darkMode {
+  min-height: 100vh;
+  padding: 40px 16px 72px;
+  box-sizing: border-box;
+  font-family: system-ui, 'Segoe UI', Arial, sans-serif;
+  direction: rtl;
+  transition: background-color 0.3s, color 0.3s;
+
+  /* משתני הצבע — כדי שכל הכללים למטה יעבדו בשתי הערכות */
+  color: var(--fg);
+  background-color: var(--bg);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.lightMode {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --border: #dcdfe4;
+  --fg: #1f2430;
+  --fg-muted: #5c6470;
+  --accent: #2f510f;
+  --accent-fg: #ffffff;
+  --radius: 14px;
+  --shadow: 0 1px 3px rgba(20, 25, 35, 0.08), 0 6px 20px rgba(20, 25, 35, 0.06);
+  --shadow-hover: 0 2px 6px rgba(20, 25, 35, 0.12),
+    0 12px 30px rgba(20, 25, 35, 0.1);
+}
+
+.darkMode {
+  --bg: #14161a;
+  --surface: #1e2128;
+  --border: #333844;
+  --fg: #f2f4f8;
+  --fg-muted: #a5adba;
+  --accent: #7fae4e;
+  --accent-fg: #10130c;
+  --radius: 14px;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4), 0 6px 20px rgba(0, 0, 0, 0.35);
+  --shadow-hover: 0 2px 6px rgba(0, 0, 0, 0.5), 0 12px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* ----- טיפוגרפיה ----- */
+
+.lightMode h1,
+.darkMode h1 {
+  color: var(--fg);
+}
+
+.lightMode h3,
+.darkMode h3 {
+  margin: 0 0 6px;
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--fg);
+}
+
+.lightMode h4,
+.darkMode h4 {
+  margin: 0 0 14px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--fg-muted);
+}
+
+.lightMode h5,
+.darkMode h5 {
+  margin: 8px 0 12px;
+  font-size: 0.95rem;
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--fg-muted);
+}
+
+/* ===== כרטיס המוצר =====
+   עיצוב מחדש: הכותרת ממורכזת, כפתור המועדפים ממוקם ללא float
+   (float גורם לכותרת להידחס, ואינו תואם RTL באופן אמין). */
+
+.product-card {
+  position: relative;
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+  padding-top: 58px; /* מרווח לכפתור המועדפים הממוקם בפינה */
+  margin-bottom: 22px;
+  width: 100%;
+  max-width: 460px;
+  text-align: center;
+  transition: background-color 0.3s, border-color 0.3s, box-shadow 0.2s;
+}
+
+.product-card:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+/* כפתור המועדפים — ממוקם בפינה העליונה השמאלית מבלי להשפיע על הזרימה */
+.product-card > button:first-of-type {
+  position: absolute;
+  top: 12px;
+  inset-inline-end: 12px;
+  margin: 0;
+  font-size: 0.8rem;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+.product-card > h3 {
+  text-align: center;
+}
+
+.product-card > h4 {
+  text-align: center;
+}
+
+/* שורת הכפתורים + / − : מרוכזת, עם מרווח אחיד */
+.product-card > button {
+  vertical-align: middle;
+}
+
+.product-card > h5 + button,
+.product-card > button:nth-of-type(2),
+.product-card > button:nth-of-type(3) {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.product-card > button:nth-of-type(2),
+.product-card > button:nth-of-type(3) {
+  min-width: 46px;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 10px 0;
+  border-radius: 10px;
+  background-color: var(--bg);
+}
+
+.product-card > button:nth-of-type(2):hover,
+.product-card > button:nth-of-type(3):hover {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-fg);
+}
+
+/* אזור הסה"כ — מופרד בקו דק משאר התוכן */
+.product-card > h3:not(:first-of-type) {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border);
+  font-size: 1.05rem;
+  color: var(--accent);
+}
+
+/* כפתור "הוסף לסל" — רוחב מלא ובולט */
+.product-card > .add {
+  display: block;
+  width: 100%;
+  margin-top: 14px;
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-fg);
+}
+
+.product-card > .add:hover {
+  color: var(--accent-fg);
+  filter: brightness(1.12);
+}
+
+/* ===== כפתורים כלליים ===== */
+
+.lightMode button,
+.darkMode button {
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 9px 18px;
+  margin: 3px;
+  border-radius: 9px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  color: var(--fg);
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s,
+    transform 0.1s;
+}
+
+.lightMode button:hover,
+.darkMode button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.lightMode button:active,
+.darkMode button:active {
+  transform: translateY(1px);
+}
+
+.lightMode button:focus-visible,
+.darkMode button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* כפתור החלפת המצב — יושב ישירות על הרקע, לא בכרטיס */
+.lightMode > button,
+.darkMode > button {
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-fg);
+  font-size: 1.15rem;
+  padding: 8px 16px;
+  margin: 0 0 28px;
+  align-self: flex-start;
+  box-shadow: var(--shadow);
+}
+
+.lightMode > button:hover,
+.darkMode > button:hover {
+  color: var(--accent-fg);
+  filter: brightness(1.12);
+}
+
+/* ===== רשימת המאפיינים (קרא עוד) ===== */
+
+.lightMode ul,
+.darkMode ul {
+  list-style: none;
+  padding: 0;
+  margin: 4px 0 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.lightMode li,
+.darkMode li {
+  background-color: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 5px 13px;
+  font-size: 0.85rem;
+  color: var(--fg-muted);
+}
+
+/* ===== טופס יצירת קשר ===== */
+
+.lightMode form,
+.darkMode form {
+  background-color: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+  width: 100%;
+  max-width: 460px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.lightMode textarea,
+.darkMode textarea {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 110px;
+  resize: vertical;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.lightMode textarea::placeholder,
+.darkMode textarea::placeholder {
+  color: var(--fg-muted);
+}
+
+.lightMode textarea:focus,
+.darkMode textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+.lightMode form h4,
+.darkMode form h4 {
+  margin: 0;
+  font-size: 0.8rem;
+  text-align: start;
+}
+
+/* הודעת ההצלחה — מיושרת כמו הטופס */
+.lightMode > p,
+.darkMode > p {
+  line-height: 1.6;
+  margin: 0;
+  padding: 18px 22px;
+  width: 100%;
+  max-width: 460px;
+  box-sizing: border-box;
+  background-color: var(--surface);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  color: var(--fg);
+  text-align: center;
+}
