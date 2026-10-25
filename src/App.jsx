@@ -34,7 +34,7 @@ function ProductDescription(product) {
       <h5>{product.description}</h5>
 
       <button onClick={() => setSeem(!seem)}>קרא עוד</button>
-  
+
       {seem && (
         <ul>
           {product.feature.map((feature, index) => (
@@ -65,7 +65,7 @@ function ContactForm() {
 
 function FavoriteButton(name) {
   const [isFavorite, setIsFavorite] = useState(false);
-  
+
   return (
     <button onClick={() => setIsFavorite(!isFavorite)}>
       {isFavorite ? '❤️' : '🤍'} {name.value}
@@ -78,12 +78,14 @@ function ProductCard(product) {
     <article className="product-card">
       <FavoriteButton name={product.product.name} />
       <QuantityCounter product={product} />
-      
+
     </article>
   );
 }
 
-const products = [
+
+
+const initialProducts  = [
   {
     "id": 1,
     "name": 'סט כוסות',
@@ -115,17 +117,59 @@ const products = [
 ];
 
 function App() {
+  const [products, setProducts] = useState(initialProducts);
+  const [formOpen, setFormOpen] = useState(false);
+  const [formData, setFormData] = useState({
+    name: '',
+    price: '',
+    description: '',
+    feature: ''
+  });
   const [lightMode, setLightMode] = useState(true);
   return (<>
     <div className={lightMode ? 'lightMode' : 'darkMode'}>
-    <button onClick={() => setLightMode(!lightMode)}>
-      {lightMode ? '🌑' : '☀️'}
-    </button>
-    {products.map(product => (
-      <ProductCard product={product} key={product.id} />
-    ))}
-    <ContactForm></ContactForm>
-  </div></>);
+      <button onClick={() => setLightMode(!lightMode)}>
+        {lightMode ? '🌑' : '☀️'}
+      </button>
+
+
+      <button onClick={() => setFormOpen(!formOpen)}>
+        {formOpen ? 'סגור טופס' : 'הוסף מוצר חדש'}
+      </button>
+      {formOpen && (
+        <form className="add-product-form">
+          <h3 className="form-title">הוספת מוצר חדש</h3>
+          <input type="text" placeholder="שם המוצר" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
+          <input type="number" placeholder="מחיר (ש״ח)" min="0" value={formData.price} onChange={(e) => setFormData({ ...formData, price: e.target.value })} />
+          <input type="text" placeholder="תיאור" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} />
+          <input type="text" placeholder="מאפיינים (מופרדים בפסיקים)" value={formData.feature} onChange={(e) => setFormData({ ...formData, feature: e.target.value })} />
+          <button className="submit-btn" type="submit" onClick={(e) => {
+            e.preventDefault();
+            const newProduct = {
+              id: products.length + 1,
+              name: formData.name,
+              price: parseFloat(formData.price),
+              description: formData.description,
+              feature: formData.feature.split(',').map(f => f.trim())
+            }
+
+            setProducts([...products, newProduct]);
+            setFormData({
+              name: '',
+              price: '',
+              description: '',
+              feature: ''
+            });
+            setFormOpen(!formOpen)
+          }}> הוסף מוצר</button>
+        </form >)}
+
+
+      {products.map(product => (
+        <ProductCard product={product} key={product.id} />
+      ))}
+      <ContactForm></ContactForm>
+    </div></>);
 }
 
 export default App

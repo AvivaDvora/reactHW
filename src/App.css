@@ -2,6 +2,7 @@
 button {
   align-self: center !important;
   align-items: center!important;
+  margin: 12px !important;
 }
 .lightMode,
 .darkMode {
@@ -227,6 +228,21 @@ button {
   box-shadow: var(--shadow);
 }
 
+/* כפתור פתיחת/סגירת הטופס — משני, לצד כפתור המצב */
+.lightMode > button + button,
+.darkMode > button + button {
+  margin-top: -28px;
+  margin-bottom: 28px;
+  border-color: var(--accent);
+  color: white;
+}
+
+.lightMode > button + button:hover,
+.darkMode > button + button:hover {
+  background-color: var(--accent);
+  color: var(--accent-fg);
+}
+
 .lightMode > button:hover,
 .darkMode > button:hover {
   color: var(--accent-fg);
@@ -325,4 +341,69 @@ button {
   box-shadow: var(--shadow);
   color: var(--fg);
   text-align: center;
+}
+
+/* ===== טופס הוספת מוצר =====
+   משתמש באותם משתני עיצוב של הכרטיס והטופס הקיים,
+   עם הדגשה קלה של ה-accent כדי שייראה "פעולה" ולא רק טופס. */
+
+.lightMode form.add-product-form,
+.darkMode form.add-product-form {
+  margin-bottom: 28px;
+  border-top: 3px solid var(--accent);
+  gap: 12px;
+}
+
+.lightMode form.add-product-form h3,
+.darkMode form.add-product-form h3 {
+  margin: 0 0 4px;
+  padding-bottom: 12px;
+  border-bottom: 1px dashed var(--border);
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.lightMode form.add-product-form input[type='text'],
+.lightMode form.add-product-form input[type='number'],
+.darkMode form.add-product-form input[type='text'],
+.darkMode form.add-product-form input[type='number'] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background-color: var(--bg);
+  color: var(--fg);
+  font-family: inherit;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.3s;
+}
+
+.lightMode form.add-product-form input::placeholder,
+.darkMode form.add-product-form input::placeholder {
+  color: var(--fg-muted);
+}
+
+.lightMode form.add-product-form input:focus,
+.darkMode form.add-product-form input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
+
+/* כפתור השליחה — זהה לכפתור "הוסף לסל" כדי לשמור על שפה חזותית אחת */
+.lightMode form.add-product-form button.submit-btn,
+.darkMode form.add-product-form button.submit-btn {
+  margin: 6px 0 0;
+  padding: 12px 18px;
+  background-color: var(--accent);
+  border-color: var(--accent);
+  color: var(--accent-fg);
+  font-size: 1rem;
+}
+
+.lightMode form.add-product-form button.submit-btn:hover,
+.darkMode form.add-product-form button.submit-btn:hover {
+  color: var(--accent-fg);
+  filter: brightness(1.12);
 }
